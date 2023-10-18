@@ -7,6 +7,11 @@ apt install net-tools -y
 docker volume create portainer_data
 docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 
+# ifconfig aufrufen und das Ergebnis in einer Variable speichern
+ip_info=$(ifconfig)
+
+# Mit grep nach der IP-Adresse suchen und nur diese Zeilen ausgeben
+ip_address=$(echo "$ip_info" | grep -oP 'inet \K[\d.]+')
 echo IPs:
-ifconfig | grep -oP 'inet \K[\d.]+'
+echo "$ip_address"
 echo Installscript ist durchgelaufen! Made by NoPro200
